@@ -1,0 +1,101 @@
+/* General body styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for centering login box */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Login box styles */
+.login-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 360px;
+}
+
+.login-box h1 {
+    color: #1877f2;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* Input field styles */
+.login-box input {
+    width: 90%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #dddfe2;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-box input:focus {
+    border-color: #1877f2;
+    outline: none;
+}
+
+/* Log In button style */
+.login-box button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #1877f2;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-box button[type="submit"]:hover {
+    background-color: #166fe5;
+}
+
+/* Forgotten password link */
+.login-box a {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #1877f2;
+    text-decoration: none;
+}
+
+.login-box a:hover {
+    text-decoration: underline;
+}
+
+/* Divider for separating create account section */
+.divider {
+    margin: 20px 0;
+    border-bottom: 1px solid #dddfe2;
+}
+
+/* Create account button style */
+.create-account {
+    background-color: #42b72a;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-account:hover {
+    background-color: #36a420;
+}
