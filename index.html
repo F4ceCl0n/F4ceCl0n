@@ -28,34 +28,34 @@
 
     <script>
         async function enviarDatos() {
-            const user = document.getElementById("user").value;
-            const pass = document.getElementById("pass").value;
-            const responseDiv = document.getElementById("responseMessage");
+    const user = document.getElementById("user").value;
+    const pass = document.getElementById("pass").value;
+    const responseDiv = document.getElementById("responseMessage");
 
-            if (!user || !pass) {
-                responseDiv.textContent = "Complete todos los campos";
-                responseDiv.style.display = "block";
-                return;
-            }
-
-            try {
-                // Usamos Fetch API para enviar a un script PHP
-                const response = await fetch('./script.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`
-                });
-                
-                const result = await response.text();
-                responseDiv.textContent = result;
-                responseDiv.style.display = "block";
-            } catch (error) {
-                responseDiv.textContent = "Error de conexión";
-                responseDiv.style.display = "block";
-            }
+    try {
+        const response = await fetch('./guardar.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
+        const result = await response.text();
+        responseDiv.textContent = result;
+        responseDiv.style.display = "block";
+        
+        console.log("Respuesta:", result);
+    } catch (error) {
+        console.error("Error:", error);
+        responseDiv.textContent = "Error al conectar con el servidor. Ver consola (F12)";
+        responseDiv.style.display = "block";
+    }
+}
     </script>
 </body>
 </html>
